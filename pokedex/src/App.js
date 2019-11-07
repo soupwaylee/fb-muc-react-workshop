@@ -88,6 +88,7 @@ function PokedexDescription(props) {
 
   useEffect(() => {
     if (selectedPokemon != null) {
+      setSpeciesDetails(null);
       fetch("https://pokeapi.co/api/v2/pokemon-species/" + selectedPokemon)
         .then( response => response.json())
         .then( data => {
