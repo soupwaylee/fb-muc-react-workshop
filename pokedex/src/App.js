@@ -61,10 +61,17 @@ function PokedexImage(props) {
   );
 }
 
+// needs common root
+// but then you'd litter around lots of possibly useless divs --> useless weight, this adds performance penalty
 function PokedexSummary(props) {
   let content = null;
   if (props.details != null) {
-    content = <h1>{props.details.name}</h1>
+    content = (
+      <div>
+        <h1>{props.details.name}</h1>
+        <p> {props.details.id} </p>
+      </div>
+    );
   }
   return (
     <div className="pokedex-summary">{content}</div>
@@ -81,25 +88,25 @@ function PokedexList(props) { // this is a component now
 
   return (
     <ul className="pokedex-list"> 
-          <li>Selected: {selectedPokemon}</li>
-          {
-            pokemon.map((p, index) => {
-              const number = String(index + 1).padStart(3, "0");
-              const buttonClass = p.name === selectedPokemon ? "active" : null;
-              return (
-                <li key={p.name}>
-                  <button onClick={ () => {
-                    //selectedPokemon = p.name;
-                    setSelectedPokemon(p.name);
-                    console.log("Button was clicked");
-                    } }>
-                    <strong>{number}</strong> {p.name}
-                  </button>
-                </li>
-              )
-            })
-          }
-        </ul>
+      <li>Selected: {selectedPokemon}</li>
+      {
+        pokemon.map((p, index) => {
+          const number = String(index + 1).padStart(3, "0");
+          const buttonClass = p.name === selectedPokemon ? "active" : null;
+          return (
+            <li key={p.name}>
+              <button onClick={ () => {
+                //selectedPokemon = p.name;
+                setSelectedPokemon(p.name);
+                console.log("Button was clicked");
+                } }>
+                <strong>{number}</strong> {p.name}
+              </button>
+            </li>
+          )
+        })
+      }
+    </ul>
   );
 }
 
