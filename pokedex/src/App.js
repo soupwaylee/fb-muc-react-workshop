@@ -63,14 +63,16 @@ function PokedexImage(props) {
 
 // needs common root
 // but then you'd litter around lots of possibly useless divs --> useless weight, this adds performance penalty
+// fetch data as far down as possible, so you should know exactly where to pass data and when
 function PokedexSummary(props) {
   let content = null;
   if (props.details != null) {
+    // use fragments
     content = (
-      <div>
+      <>
         <h1>{props.details.name}</h1>
         <p> {props.details.id} </p>
-      </div>
+      </>
     );
   }
   return (
