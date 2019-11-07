@@ -3,12 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const pokemon = [
-    { name: "Ditto" },
-    { name: "Charizard" },
-    { name: "Venusaur" }
-  ];
-
+  const [pokemon, setPokemon] = useState([]);
   
   // fetch("https://pokeapi.co/api/v2/pokemon?limit=151"); returns a promise, it represents an asynchronous operation
   // 3 promise states: pending, fulfilled, rejected
@@ -20,7 +15,7 @@ function App() {
   fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
   .then( response => response.json())
   .then( data => {
-    console.log(data)
+    setPokemon(data.results); // danger - infty loop
   }); // we need a state variable
 
   // let selectedPokemon = null; this is supposed to be internal state
