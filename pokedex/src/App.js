@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -12,6 +12,8 @@ function App() {
   //   .then( response => {
   //     return response.json();
   //   })
+
+  // this is a side effect, because we are talking to another system
   fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
   .then( response => response.json())
   .then( data => {
