@@ -9,6 +9,20 @@ function App() {
     { name: "Venusaur" }
   ];
 
+  
+  // fetch("https://pokeapi.co/api/v2/pokemon?limit=151"); returns a promise, it represents an asynchronous operation
+  // 3 promise states: pending, fulfilled, rejected
+
+  // fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+  //   .then( response => {
+  //     return response.json();
+  //   })
+  fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+  .then( response => response.json())
+  .then( data => {
+    console.log(data)
+  }); // we need a state variable
+
   // let selectedPokemon = null; this is supposed to be internal state
   const [
     /* getter: */ selectedPokemon, 
@@ -37,7 +51,7 @@ function PokedexList(props) { // this is a component now
   // const selectedPokemon = props.selectedPokemon;
   // const setSelectedPokemon = props.setSelectedPokemon; this looks ugly
 
-  const { pokemon, selectedPokemon, setSelectedPokemon } = props; // but this is nicer
+  const { pokemon, selectedPokemon, setSelectedPokemon } = props; // but this is better
 
   return (
     <ul className="pokedex-list"> 
