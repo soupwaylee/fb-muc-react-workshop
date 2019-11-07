@@ -56,7 +56,7 @@ function PokedexImage(props) {
   // const imageURL = props.details.sprites.front_default; // in the beginning this can be null
   return (
     <div className="pokedex-image">
-      {props.details != null ? <img src={props.details.sprites.front_default}/> : null}
+      {props.details && <img src={props.details.sprites.front_default}/>}
     </div>
   );
 }
