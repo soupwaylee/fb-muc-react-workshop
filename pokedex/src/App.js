@@ -5,20 +5,13 @@ import './App.css';
 function App() {
   const [pokemon, setPokemon] = useState([]);
   
-  // fetch("https://pokeapi.co/api/v2/pokemon?limit=151"); returns a promise, it represents an asynchronous operation
-  // 3 promise states: pending, fulfilled, rejected
-
-  // fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-  //   .then( response => {
-  //     return response.json();
-  //   })
-
-  // this is a side effect, because we are talking to another system
-  fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-  .then( response => response.json())
-  .then( data => {
-    setPokemon(data.results); // danger - infty loop
-  }); // we need a state variable
+  useEffect(() => {
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+      .then( response => response.json())
+      .then( data => {
+        setPokemon(data.results);
+      });
+  }, []); // this is the recommended way (don't use lifecycle states) - function components, creating classes is more expensive
 
   // let selectedPokemon = null; this is supposed to be internal state
   const [
