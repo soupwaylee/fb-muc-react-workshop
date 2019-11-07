@@ -45,17 +45,18 @@ function App() {
         setSelectedPokemon={setSelectedPokemon}
       />
       <div className="pokedex-description"></div>
-      <PokedexImage />
+      <PokedexImage details={details} />
       <div className="pokedex-summary"></div>
     </div>
   );
 }
 
 function PokedexImage(props) {
-  const imageURL = props.details
+  // we could do an early return statement, but then it doesn't render the component at the very beginning, we want to render the white component (conditionally)
+  // const imageURL = props.details.sprites.front_default; // in the beginning this can be null
   return (
     <div className="pokedex-image">
-      <img src={imageURL}/>
+      {props.details != null ? <img src={props.details.sprites.front_default}/> : null}
     </div>
   );
 }
