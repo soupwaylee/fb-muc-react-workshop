@@ -3,15 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  // i forgot why there needs to be [] or null
   const [pokemon, setPokemon] = useState([]);
-  
-  useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-      .then( response => response.json())
-      .then( data => {
-        setPokemon(data.results);
-      });
-  }, []); // this is the recommended way (don't use lifecycle states) - function components, creating classes is more expensive
+  const [details, setDetails] = useState(null); 
 
   // let selectedPokemon = null; this is supposed to be internal state
   const [
@@ -21,6 +15,28 @@ function App() {
 
   console.log("App is being rendered!");
 
+  useEffect(() => {
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+      .then( response => response.json())
+      .then( data => {
+        setPokemon(data.results);
+      });
+  }, []); // this is the recommended way (don't use lifecycle states) - function components, creating classes is more expensive
+  /* specify an empty array, we don't want to load the whole list each time. (TODO understand this later)
+  
+   */
+
+  useEffect(() => {
+    if (selectedPokemon != null) {
+      fetch("https://pokeapi.co/api/v2/pokemon/" + selectedPokemon)
+        .then( response => response.json())
+        .then( data => {
+          console.log(data);
+          setDetails(data);
+        });
+    }
+  }, [selectedPokemon]);
+
   return (
     <div className="pokedex">
       <PokedexList
@@ -29,8 +45,17 @@ function App() {
         setSelectedPokemon={setSelectedPokemon}
       />
       <div className="pokedex-description"></div>
-      <div className="pokedex-image"></div>
+      <PokedexImage />
       <div className="pokedex-summary"></div>
+    </div>
+  );
+}
+
+function PokedexImage(props) {
+  const imageURL = props.details
+  return (
+    <div className="pokedex-image">
+      <img src={imageURL}/>
     </div>
   );
 }
