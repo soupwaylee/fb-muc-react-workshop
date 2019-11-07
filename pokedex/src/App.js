@@ -19,8 +19,28 @@ function App() {
 
   return (
     <div className="pokedex">
-      <div >
-        <ul className="pokedex-list"> 
+      <PokedexList
+        pokemon={pokemon}
+        selectedPokemon={selectedPokemon}
+        setSelectedPokemon={setSelectedPokemon}
+      />
+      <div className="pokedex-description"></div>
+      <div className="pokedex-image"></div>
+      <div className="pokedex-summary"></div>
+    </div>
+  );
+}
+
+function PokedexList(props) { // this is a component now
+  // console.log(props);
+  // const pokemon = props.pokemon;
+  // const selectedPokemon = props.selectedPokemon;
+  // const setSelectedPokemon = props.setSelectedPokemon; this looks ugly
+
+  const { pokemon, selectedPokemon, setSelectedPokemon } = props; // but this is nicer
+
+  return (
+    <ul className="pokedex-list"> 
           <li>Selected: {selectedPokemon}</li>
           {
             pokemon.map((p, index) => {
@@ -40,11 +60,6 @@ function App() {
             })
           }
         </ul>
-      </div>
-      <div className="pokedex-description"></div>
-      <div className="pokedex-image"></div>
-      <div className="pokedex-summary"></div>
-    </div>
   );
 }
 
