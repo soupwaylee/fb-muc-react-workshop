@@ -46,7 +46,7 @@ function App() {
       />
       <div className="pokedex-description"></div>
       <PokedexImage details={details} />
-      <div className="pokedex-summary"></div>
+      <PokedexSummary details={details} />
     </div>
   );
 }
@@ -58,6 +58,16 @@ function PokedexImage(props) {
     <div className="pokedex-image">
       {props.details && <img src={props.details.sprites.front_default}/>}
     </div>
+  );
+}
+
+function PokedexSummary(props) {
+  let content = null;
+  if (props.details != null) {
+    content = <h1>{props.details.name}</h1>
+  }
+  return (
+    <div className="pokedex-summary">{content}</div>
   );
 }
 
