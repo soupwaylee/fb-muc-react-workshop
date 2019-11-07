@@ -44,7 +44,7 @@ function App() {
         selectedPokemon={selectedPokemon}
         setSelectedPokemon={setSelectedPokemon}
       />
-      <div className="pokedex-description"></div>
+      <PokedexDescription selectedPokemon = {selectedPokemon} />
       <PokedexImage details={details} />
       <PokedexSummary details={details} />
     </div>
@@ -77,6 +77,33 @@ function PokedexSummary(props) {
   }
   return (
     <div className="pokedex-summary">{content}</div>
+  );
+}
+
+function PokedexDescription(props) {
+  const { selectedPokemon } = props;
+  console.log(selectedPokemon);
+
+  const [speciesDetails, setSpeciesDetails] = useState(null);
+
+  useEffect(() => {
+    if (selectedPokemon != null) {
+      fetch("https://pokeapi.co/api/v2/pokemon-species/" + selectedPokemon)
+        .then( response => response.json())
+        .then( data => {
+          setSpeciesDetails(data);
+        });
+    }
+  }, [selectedPokemon]);
+
+  let description = null;
+  if (speciesDetails != null) {
+    const textEntry = speciesDetails.flavor_text_entries.find(entry => entry.language.name === 'en');
+    description = textEntry.flavor_text;
+  }
+
+  return (
+    <div className="pokedex-description">{description}</div>
   );
 }
 
